@@ -623,7 +623,11 @@ a {
       opacity: 1;
    }
 }
-#confetti-canvas{
+#confetti-canvas {
    position: absolute;
-   top: 170%;
+   top: 3029px;
+   width: 100%;
+   left: 50%;
+   translate: -50% 0;
+   height: 800px;
 }
