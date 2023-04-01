@@ -115,29 +115,71 @@ actBtns.forEach((btn => {
    }
 }))
 
-let sec = document.querySelector('#seconds')
-let min = document.querySelector('#minutes')
-let hors = document.querySelector('#hours')
-let day = document.querySelector('#days')
-let intirval;
+// let sec = document.querySelector('#seconds')
+// let min = document.querySelector('#minutes')
+// let hors = document.querySelector('#hours')
+// let day = document.querySelector('#days')
+// let intirval;
 
-intirval = setInterval(() => {
-   sec.innerHTML--
-   if (sec.innerHTML <= 0) {
-      sec.innerHTML = 59
-      min.innerHTML--
-      if (min.innerHTML <= 0) {
-         min.innerHTML = 59
-         hors.innerHTML--
-         if (hors.innerHTML <= 0) {
-            day.innerHTML--
-            if (day.innerHTML <= 0) {
-               clearInterval(interval)
-               hors.innerHTML = 0
-               min.innerHTML = 0
-               sec.innerHTML = 0
-            }
-         }
+// intirval = setInterval(() => {
+//    sec.innerHTML--
+//    if (sec.innerHTML <= 0) {
+//       sec.innerHTML = 59
+//       min.innerHTML--
+//       if (min.innerHTML <= 0) {
+//          min.innerHTML = 59
+//          hors.innerHTML--
+//          if (hors.innerHTML <= 0) {
+//             day.innerHTML--
+//             hors.innerHTML = 23
+//             if (day.innerHTML <= 0) {
+//                clearInterval(interval)
+//                hors.innerHTML = 0
+//                min.innerHTML = 0
+//                sec.innerHTML = 0
+//             }
+//          }
+//       }
+//    }
+// }, 1000)
+
+
+
+
+
+
+
+let deadline = '2023-04-01 12:09';
+const timeCheck = (end) => {
+   const t = Date.parse(end) - Date.now(),
+      days = Math.floor((t / 1000) / 60 / 60 / 24),
+      hours = Math.floor((t / 1000) / 60 / 60 % 24),
+      minutes = Math.floor((t / 1000) / 60 % 60),
+      seconds = Math.floor((t / 1000) % 60);
+   return { t, days, hours, minutes, seconds }
+}
+const showTimes = (end, selector) => {
+   const timer = document.querySelector(selector),
+      days = timer.querySelector('#days'),
+      hours = timer.querySelector('#hours'),
+      minutes = timer.querySelector('#minutes'),
+      seconds = timer.querySelector('#seconds'),
+      timeInter = setInterval(upTime, 1000)
+
+   function upTime() {
+      const t = timeCheck(end)
+      days.innerHTML = t.days
+      hours.innerHTML = t.hours
+      minutes.innerHTML = t.minutes
+      seconds.innerHTML = t.seconds
+      if (t.t === 0 || t.t < 0) {
+         clearInterval(timeInter)
+         timer.innerHTML = 'Не успел лох'
+         startConfetti();
       }
    }
-}, 1000)
+}
+
+
+showTimes(deadline, '.timer')
+

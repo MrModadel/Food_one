@@ -623,3 +623,7 @@ a {
       opacity: 1;
    }
 }
+#confetti-canvas{
+   position: absolute;
+   top: 170%;
+}
